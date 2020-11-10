@@ -1,0 +1,83 @@
+# UI
+banner:
+  enable: true
+  title: 施工中……
+  src: /js/ui/banner.js
+  border: true
+  cloud:
+    enable: true
+    color: "white"
+  go_down:
+    enable: true
+    icon: icon-arrow-down-s-line
+
+# Sidebar Avatar
+avatar:
+  enable: true
+  url: /girl.jpeg
+  # If true, the avatar would be dispalyed in circle.
+  rounded: true
+  # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
+  opacity: 1
+  mickey_mouse: false
+  status:
+    enable: false
+    emoji: 😊
+    message: 永远相信美好的事情即将发生
+
+# Social Links.
+social:
+  - name: GitHub
+    link: https://github.com/mesmerxx
+    icon: icon-github-line
+    color: "#6e5494"
+  - name: 网易云音乐
+    link: https://music.163.com/#/user/home?id=95501215
+    icon: icon-netease-cloud-music-line
+    color: "#C20C0C"
+  - name: 知乎
+    link: https://www.zhihu.com/people/shen-zhi-shen-zhi
+    icon: icon-zhihu-line
+    color: "#0084FF"
+  # - name: Twitter
+  #   link: https://twitter.com/YunYouJun
+  #   icon: icon-twitter-line
+  #   color: "#1da1f2"
+  - name: E-Mail
+    link: mailto:mesmerxx@163.com
+    icon: icon-mail-line
+    color: "#8E71C1"
+
+girls:
+  enable: true
+
+# main menu navigation
+menu:
+  home:
+    path: /
+    icon: icon-home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: icon-archive-line
+    - type: categories
+      path: /categories/
+      icon: icon-folder-2-line
+    - type: tags
+      path: /tags/
+      icon: icon-price-tag-3-line
+  custom:
+    title: 文档
+    path: /
+    icon: icon-settings-line
+
+colors:
+  primary: "#0078E7"
+  # primary: "#6200ee"
+  bg: "#f5f5f5"
+  selection_bg: "#8e71c1"
+  tag_start_color: "#999999"
+  tag_end_color: "#0078E7"
+  dark:
+    block: "#1b1f2e"
+    # block: "#17202A"
