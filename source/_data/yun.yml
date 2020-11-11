@@ -21,7 +21,7 @@ avatar:
   opacity: 1
   mickey_mouse: false
   status:
-    enable: false
+    enable: true
     emoji: 😊
     message: 永远相信美好的事情即将发生
 
@@ -47,9 +47,6 @@ social:
     link: mailto:mesmerxx@163.com
     icon: icon-mail-line
     color: "#8E71C1"
-
-girls:
-  enable: true
 
 # main menu navigation
 menu:
@@ -81,3 +78,15 @@ colors:
   dark:
     block: "#1b1f2e"
     # block: "#17202A"
+
+# Extra links
+pages:
+
+say:
+  enable: true
+  api: https://el-bot-api.vercel.app/api/words/young
+  src: /js/say.js
+  # https://developer.hitokoto.cn/sentence/
+  hitokoto:
+    enable: false
+    api: https://v1.hitokoto.cn
