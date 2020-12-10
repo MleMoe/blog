@@ -1,7 +1,7 @@
 # UI
 banner:
   enable: true
-  title: 施工中……
+  title: M·小站
   src: /js/ui/banner.js
   border: true
   cloud:
@@ -14,7 +14,7 @@ banner:
 # Sidebar Avatar
 avatar:
   enable: true
-  url: /girl.jpeg
+  url: /images/girl.jpeg
   # If true, the avatar would be dispalyed in circle.
   rounded: true
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
@@ -51,6 +51,7 @@ social:
 # main menu navigation
 menu:
   home:
+    title: 首页
     path: /
     icon: icon-home-4-line
   list:
@@ -90,3 +91,28 @@ say:
   hitokoto:
     enable: false
     api: https://v1.hitokoto.cn
+
+reward:
+  enable: true
+  icon: icon-hand-coin-line
+  comment: I'm so cute. Please give me money.
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  methods:
+    - name: 支付宝
+      path: /images/zfb-pay.jpeg
+      color: "#00A3EE"
+      icon: icon-alipay-line
+    # - name: QQ 支付
+    #   path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png
+    #   color: "#12B7F5"
+    #   icon: icon-qq-line
+    # - name: 微信支付
+    #   path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
+    #   color: "#2DC100"
+    #   icon: icon-wechat-pay-line
+  
+github_issues:
+  enable: true
+  username: mesmerxx
+  repository: mesmerxx.github.io
+  filters: is:issue
