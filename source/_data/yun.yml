@@ -1,7 +1,7 @@
 # UI
 banner:
   enable: true
-  title: 鸽子笔记
+  title: 鸽子的一百种做法
   src: /js/ui/banner.js
   border: true
   cloud:
