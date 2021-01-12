@@ -7,13 +7,13 @@ title: ヾ(❀╹◡╹)ﾉ~
 subtitle: ''
 description: ''
 keywords:
-author: mesmerxx
+author: MleMoe
 language: en
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://mesmerxx.github.io/
+url: https://www.mle.moe
 root: '/'
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -104,6 +104,6 @@ theme: yun
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/mesmerxx/mesmerxx.github.io
+  repo: https://github.com/MleMoe/blog
   # example, https://github.com/hexojs/hexojs.github.io
   branch: gh-pages

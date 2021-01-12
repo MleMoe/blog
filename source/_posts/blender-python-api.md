@@ -1,5 +1,5 @@
 ---
-title: 使用Python操作Blender
+title: 使用 Python 操作 Blender
 date: 2020-12-22 16:13:18
 tags: 
 - Blender

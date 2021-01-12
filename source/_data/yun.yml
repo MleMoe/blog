@@ -1,7 +1,7 @@
 # UI
 banner:
   enable: true
-  title: M·小站
+  title: 鸽子笔记
   src: /js/ui/banner.js
   border: true
   cloud:
@@ -28,7 +28,7 @@ avatar:
 # Social Links.
 social:
   - name: GitHub
-    link: https://github.com/mesmerxx
+    link: https://github.com/MleMoe
     icon: icon-github-line
     color: "#6e5494"
   - name: 网易云音乐
@@ -44,7 +44,7 @@ social:
   #   icon: icon-twitter-line
   #   color: "#1da1f2"
   - name: E-Mail
-    link: mailto:mesmerxx@163.com
+    link: mailto:i@mle.moe
     icon: icon-mail-line
     color: "#8E71C1"
 
