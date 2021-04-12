@@ -116,3 +116,10 @@ github_issues:
   username: mesmerxx
   repository: mesmerxx.github.io
   filters: is:issue
+
+
+codeblock:
+  copy_btn: true
+  prismjs:
+    light: default
+    dark: tomorrow
