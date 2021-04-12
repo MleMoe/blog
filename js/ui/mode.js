@@ -45,6 +45,10 @@ const validColorModeKeys = {
   light: true,
 };
 
+/**
+ * 当页面加载时，将显示模式设置为 localStorage 中自定义的值
+ * @param {string} mode
+ */
 const applyCustomDarkModeSettings = (mode) => {
   const currentSetting = mode || getLS(darkModeStorageKey);
 
@@ -80,19 +84,6 @@ const toggleCustomDarkMode = () => {
 };
 
 /**
- * bind click event for toggle button
- */
-function bindToggleButton() {
-  if (window["toggle-mode-btn"]) {
-    window["toggle-mode-btn"].addEventListener("click", () => {
-      const mode = toggleCustomDarkMode();
-      applyCustomDarkModeSettings(mode);
-      toggleCodeblockCss(mode);
-    });
-  }
-}
-
-/**
  * toggle prism css for light and dark
  * @param {*} mode 模式
  */
@@ -108,7 +99,24 @@ function toggleCodeblockCss(mode) {
   }
 }
 
+/**
+ * bind click event for toggle button
+ */
+function bindToggleButton() {
+  if (window["toggle-mode-btn"]) {
+    window["toggle-mode-btn"].addEventListener("click", () => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+      toggleCodeblockCss(mode);
+    });
+  }
+}
+
 applyCustomDarkModeSettings();
+
+const mode = getLS(darkModeStorageKey);
+toggleCodeblockCss(mode);
+
 document.addEventListener("DOMContentLoaded", bindToggleButton);
 document.addEventListener("pjax:success", bindToggleButton);
 
@@ -123,6 +131,7 @@ if (CONFIG.mode === "time") {
     const mode = toggleCustomDarkMode();
     if (mode === "dark") {
       applyCustomDarkModeSettings(mode);
+      toggleCodeblockCss(mode);
     }
   }
 }

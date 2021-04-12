@@ -1,3 +1,5 @@
+// global CONFIG
+
 HTMLElement.prototype.wrap = function(wrapper) {
   this.parentNode.insertBefore(wrapper, this);
   this.parentNode.removeChild(this);
@@ -5,7 +7,7 @@ HTMLElement.prototype.wrap = function(wrapper) {
 };
 
 Yun.utils = {
-  wrapTable: () => {
+  wrapTable() {
     document.querySelectorAll("table").forEach((el) => {
       const container = document.createElement("div");
       container.className = "table-container";
@@ -14,22 +16,47 @@ Yun.utils = {
   },
 
   /**
+   * 动态获取脚本，并执行回调函数
+   * @param {*} url
+   * @param {*} callback
+   * @param {*} condition 是否存在对应实例，判断是否加载脚本
+   */
+  getScript(url, callback, condition) {
+    if (condition) {
+      callback();
+    } else {
+      const script = document.createElement("script");
+      script.onload = () => {
+        setTimeout(callback);
+      };
+      script.src = url;
+      document.head.appendChild(script);
+    }
+  },
+
+  /**
    * click btn to copy codeblock
    */
-  insertCopyCodeBtn: () => {
+  insertCopyCodeBtn() {
     const codeblocks = document.querySelectorAll("pre[class*='language-']");
 
     codeblocks.forEach((codeblock) => {
       if (!CONFIG.copycode) return;
-      codeblock.insertAdjacentHTML(
+
+      const container = document.createElement("div");
+      container.className = "code-container";
+      codeblock.wrap(container);
+
+      container.insertAdjacentHTML(
         "beforeend",
         '<div class="copy-btn"><svg class="icon"><use xlink:href="#icon-file-copy-line" aria-label="copy"></use></svg></div>'
       );
-      const copyBtn = codeblock.querySelector(".copy-btn");
+
+      const copyBtn = container.querySelector(".copy-btn");
       copyBtn.addEventListener("click", () => {
         const lines =
-          codeblock.querySelector("code[class*='language-']") ||
-          codeblock.querySelector(".token");
+          container.querySelector("code[class*='language-']") ||
+          container.querySelector(".token");
         const code = lines.innerText;
         const ta = document.createElement("textarea");
         ta.style.top = window.scrollY + "px"; // Prevent page scrolling
@@ -52,7 +79,8 @@ Yun.utils = {
         copyBtn.blur();
         document.body.removeChild(ta);
       });
-      codeblock.addEventListener("mouseleave", () => {
+
+      container.addEventListener("mouseleave", () => {
         setTimeout(() => {
           const iconSvg = copyBtn.querySelector("svg use");
           iconSvg.setAttribute("xlink:href", "#icon-file-copy-line");
