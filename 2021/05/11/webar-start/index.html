@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="MleMoe"><meta name="copyright" content="MleMoe"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>WebAR 起步 | 咕</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.24/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_ed8vp4atwoj.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"blog.mle.moe","root":"/","title":"鸽子的一百种做法","version":"1.5.2","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg"};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="这是一个简单的 WebAR 新手教程。它将指导如何使用 WebXR Device API + Vite + Vue 创建自己的第一个 WebAR demo，并通过 github 的 gh pages 进行部署。 最终纪念跟随教程，你最终会得到类似以下物品：  代码：github repo 展示：demo  开发准备 bash 或 zsh Node.js npm 或 yarn vue vite vs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebAR 起步">
+<meta property="og:url" content="https://blog.mle.moe/2021/05/11/webar-start/index.html">
+<meta property="og:site_name" content="咕">
+<meta property="og:description" content="这是一个简单的 WebAR 新手教程。它将指导如何使用 WebXR Device API + Vite + Vue 创建自己的第一个 WebAR demo，并通过 github 的 gh pages 进行部署。 最终纪念跟随教程，你最终会得到类似以下物品：  代码：github repo 展示：demo  开发准备 bash 或 zsh Node.js npm 或 yarn vue vite vs">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-11T13:20:04.000Z">
+<meta property="article:modified_time" content="2021-05-19T09:12:19.798Z">
+<meta property="article:author" content="MleMoe">
+<meta property="article:tag" content="webar">
+<meta property="article:tag" content="webxr">
+<meta property="article:tag" content="vite">
+<meta property="article:tag" content="github">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="MleMoe"><img width="96" loading="lazy" src="/images/girl.jpeg" alt="MleMoe"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">MleMoe</a></div><a class="site-name" href="/about/site.html">咕</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">2</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">5</span></a></div><a class="site-state-item hty-icon-button" href="/" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/MleMoe" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=95501215" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:i@mle.moe" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E7%BA%AA%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">最终纪念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">开发准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-WebAR-%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">什么是 WebAR ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8A%B6%E5%86%B5"><span class="toc-number">3.2.</span> <span class="toc-text">目前状况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91"><span class="toc-number">4.</span> <span class="toc-text">开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-number">5.</span> <span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.1.</span> <span class="toc-text">需要注意的事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://blog.mle.moe/2021/05/11/webar-start/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="MleMoe"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="咕"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">WebAR 起步</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-05-11 21:20:04" itemprop="dateCreated datePublished" datetime="2021-05-11T21:20:04+08:00">2021-05-11</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2021-05-19 17:12:19" itemprop="dateModified" datetime="2021-05-19T17:12:19+08:00">2021-05-19</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/webar/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">webar</span></a><a class="tag" href="/tags/webxr/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">webxr</span></a><a class="tag" href="/tags/vite/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">vite</span></a><a class="tag" href="/tags/github/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">github</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><p>这是一个简单的 WebAR 新手教程。它将指导如何使用 WebXR Device API + Vite + Vue 创建自己的第一个 WebAR demo，并通过 github 的 gh pages 进行部署。</p>
+<h2 id="最终纪念"><a href="#最终纪念" class="headerlink" title="最终纪念"></a>最终纪念</h2><p>跟随教程，你最终会得到类似以下物品：</p>
+<ul>
+<li>代码：<a target="_blank" rel="noopener" href="https://github.com/MleMoe/webar-vue-demo">github repo</a></li>
+<li>展示：<a target="_blank" rel="noopener" href="https://mlemoe.github.io/webar-vue-demo/">demo</a></li>
+</ul>
+<h2 id="开发准备"><a href="#开发准备" class="headerlink" title="开发准备"></a>开发准备</h2><ul>
+<li>bash 或 zsh</li>
+<li>Node.js</li>
+<li>npm 或 yarn</li>
+<li>vue</li>
+<li>vite</li>
+<li>vscode</li>
+<li>git</li>
+<li>一个 github 账户</li>
+</ul>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="什么是-WebAR-？"><a href="#什么是-WebAR-？" class="headerlink" title="什么是 WebAR ？"></a>什么是 WebAR ？</h3><p>AR 是介于 VR 和现实之间的视觉技术，VR 全是虚拟，AR 则为实+虚。<br>所以 AR 被定义为一种将虚拟对象与 3D 环境实时集成并支持交互的技术。<br>简单来说就是在真实场景内放置虚拟的物体，用户通过眼镜或其它显示设备观看该结合场景，或进行一些交互。</p>
+<p>WebAR 则是在 Web 上实现 AR 的一种方式。</p>
+<h3 id="目前状况"><a href="#目前状况" class="headerlink" title="目前状况"></a>目前状况</h3><p>只考虑单目相机（也就是普通相机）</p>
+<ul>
+<li><p>老前辈 AR.js</p>
+<ul>
+<li>ARToolKit，1999 年，第一个 AR SDK，由<a target="_blank" rel="noopener" href="http://hitl.washington.edu/artoolkit/">华盛顿大学</a>开发。依照图形的仿射不变性原理，仅支持基准标记，因为它通过识别特定平面 marker 对相机位姿追踪仅涉及简单的矩阵运算。</li>
+<li>JSARToolKit5，基于 ARToolKit 实现</li>
+<li>AR.js，2017 年<br>AR.js 是一个基于 Three.js 和 JSARToolKit5 的 Web AR 解决方案，它可以在所有平台上以及具有 WebRTC 和 WebGL 的任何浏览器上运行。<br>若有兴趣，可看 <a target="_blank" rel="noopener" href="https://stemkoski.github.io/AR-Examples/">AR.js-Examples</a></li>
+</ul>
+</li>
+<li><p>three.ar.js<br>基于 <a target="_blank" rel="noopener" href="https://github.com/google-ar/WebARonARKit">WebARonARKit</a>（运行在 Android ARCore APK 上） 和 <a target="_blank" rel="noopener" href="https://github.com/google-ar/WebARonARCore">WebARonARCore</a>（iOS）<br>项目地址：<a target="_blank" rel="noopener" href="https://github.com/google-ar/three.ar.js">google-ar/three.ar.js</a><br>谷歌+手机 AR 套件+three.js，鸽了（咕咕咕）</p>
+<blockquote>
+<p>three.ar.js issues #127<br>is it depreacated?<br>I guess it is</p>
+</blockquote>
+</li>
+<li><p>正在进行中的 W3C WebXR 工作组<br>Web 接口，使用 Web 编程，在 WebXR 设备上运行 XR<br>目前可运行的示例： andriod Chrome 浏览器（版本 81+），ARKit 套件</p>
+</li>
+</ul>
+<p>我们这里选用第三种</p>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><p>vite + vue 项目起步具体介绍可参考云游君同学的 <a target="_blank" rel="noopener" href="https://www.yunyoujun.cn/posts/vue-d3-demo/">vue-d3-demo</a>，这里只按步执行命令。</p>
+<p>首先，初始化 vite 项目。</p>
+<pre class="language-shell" data-language="shell"><code class="language-shell">npm init vite-app webar-vue-demo
+# or
+# yarn create vite-app webar-vue-demo
+
+cd webar-vue-demo
+
+# 安装依赖
+npm install
+# or
+# yarn
+
+# 启动项目，默认地址为 http:&#x2F;&#x2F;localhost:3000
+# npm run dev
+# or
+# yarn dev
+</code></pre>
+
+<p>如此，项目框架就搭起来了。<br>先来介绍一下使用 WebXR Device API 的应用程序遵循类似的使用模式：</p>
+<ul>
+<li>调用<code>navigator.xr.isSessionSupported()</code>以确定硬件和 UA 是否支持该 XR 内容类型（传参确定类型）。</li>
+<li>若支持，则将 XR 内容发布给用户。</li>
+<li>用户点击开始按钮，开始查看 XR 内容。</li>
+<li>在用户激活事件（即点击按钮）中使用<code>navigator.xr.requestSession()</code> 来请求<code>XRSession</code>，</li>
+<li>如果请求<code>XRSession</code>成功，使用它运行帧循环以响应 XR 输入，并生成图像以作为响应显示在 XR 设备上。</li>
+<li>继续运行帧循环。直到 UA 关闭会话，或用户指示要退出 XR 内容为止。</li>
+</ul>
+<p>在 src 路径下新建 webar 文件夹，放置由 <a target="_blank" rel="noopener" href="https://github.com/immersive-web">Immersive Web at W3C</a> 提供的 webxr 的辅助工具，可以省去我们的一些功夫。<br>在 componets 路径下新建 BasicAR.vue 组件，在 App.vue 中使用该组件。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>template<span class="token operator">></span>
+  <span class="token operator">&lt;</span>header<span class="token operator">></span>
+    <span class="token operator">&lt;</span>details open<span class="token operator">></span>
+      <span class="token operator">&lt;</span>summary<span class="token operator">></span>模型融合测试<span class="token operator">&lt;</span><span class="token operator">/</span>summary<span class="token operator">></span>
+      <span class="token operator">&lt;</span>p<span class="token operator">></span>在真实世界平面上，放置虚拟三维物体。<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+      <span class="token operator">&lt;</span>p<span class="token operator">></span>需往四周移动摄像头，等待数秒，以学习周围环境知识。<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+      <span class="token operator">&lt;</span>p<span class="token operator">></span>支持设备：安卓 chrome 浏览器（版本<span class="token number">81</span><span class="token operator">+</span>），或其它待测试<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>details<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> WebXRButton <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/util/webxr-button.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Scene <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/scenes/scene.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span>
+  Renderer<span class="token punctuation">,</span>
+  createWebGLContext<span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/core/renderer.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Node <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/core/node.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Gltf2Node <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/nodes/gltf2.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> DropShadowNode <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/nodes/drop-shadow.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> vec3 <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/math/gl-matrix.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Ray <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../webar/js/render/math/ray.js"</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  name<span class="token operator">:</span> <span class="token string">"BasicAR"</span><span class="token punctuation">,</span>
+  <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// XR globals.</span>
+    <span class="token comment">// 提示按钮</span>
+    <span class="token keyword">let</span> xrButton <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token comment">// 用于绘制的参考空间</span>
+    <span class="token keyword">let</span> xrRefSpace <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token comment">// 用于命中测试的参考空间</span>
+    <span class="token keyword">let</span> xrViewerSpace <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token comment">// 命中测试控制句柄</span>
+    <span class="token keyword">let</span> xrHitTestSource <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token comment">// WebGL scene globals.</span>
+    <span class="token keyword">let</span> gl <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> renderer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> scene <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scene</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    scene<span class="token punctuation">.</span><span class="token function">enableStats</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//集合group，用于放置花node</span>
+    <span class="token keyword">let</span> arObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    arObject<span class="token punctuation">.</span>visible <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    scene<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span>arObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 花</span>
+    <span class="token keyword">let</span> flower <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gltf2Node</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> url<span class="token operator">:</span> <span class="token string">"gltf/sunflower/sunflower.gltf"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    arObject<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span>flower<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 标线图像</span>
+    <span class="token keyword">let</span> reticle <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gltf2Node</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> url<span class="token operator">:</span> <span class="token string">"gltf/reticle/reticle.gltf"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    reticle<span class="token punctuation">.</span>visible <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    scene<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span>reticle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 给花group创造阴影</span>
+    <span class="token keyword">let</span> shadow <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DropShadowNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    vec3<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>shadow<span class="token punctuation">.</span>scale<span class="token punctuation">,</span> <span class="token number">0.15</span><span class="token punctuation">,</span> <span class="token number">0.15</span><span class="token punctuation">,</span> <span class="token number">0.15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    arObject<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span>shadow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 最大花数量</span>
+    <span class="token keyword">const</span> <span class="token constant">MAX_FLOWERS</span> <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
+    <span class="token comment">// 花数组</span>
+    <span class="token keyword">let</span> flowers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment">// 场景透明，为了AR需要，覆盖在摄像头图像上，需透视</span>
+    <span class="token comment">// Ensure the background is transparent for AR.</span>
+    scene<span class="token punctuation">.</span>clear <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">initXR</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 提示按钮</span>
+      xrButton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebXRButton</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        onRequestSession<span class="token operator">:</span> onRequestSession<span class="token punctuation">,</span>
+        onEndSession<span class="token operator">:</span> onEndSession<span class="token punctuation">,</span>
+        textEnterXRTitle<span class="token operator">:</span> <span class="token string">"START AR"</span><span class="token punctuation">,</span>
+        textXRNotFoundTitle<span class="token operator">:</span> <span class="token string">"此设备不支持AR"</span><span class="token punctuation">,</span>
+        textExitXRTitle<span class="token operator">:</span> <span class="token string">"EXIT  AR"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 将提示按钮加入dom中</span>
+      document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>xrButton<span class="token punctuation">.</span>domElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>xr<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        navigator<span class="token punctuation">.</span>xr<span class="token punctuation">.</span><span class="token function">isSessionSupported</span><span class="token punctuation">(</span><span class="token string">"immersive-ar"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">supported</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+          xrButton<span class="token punctuation">.</span>enabled <span class="token operator">=</span> supported<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 请求会话</span>
+    <span class="token keyword">function</span> <span class="token function">onRequestSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> navigator<span class="token punctuation">.</span>xr
+        <span class="token punctuation">.</span><span class="token function">requestSession</span><span class="token punctuation">(</span><span class="token string">"immersive-ar"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+          requiredFeatures<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"local"</span><span class="token punctuation">,</span> <span class="token string">"hit-test"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">session</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+          <span class="token comment">// 如果请求成功则设置 AR Session</span>
+          xrButton<span class="token punctuation">.</span><span class="token function">setSession</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">onSessionStarted</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">function</span> <span class="token function">onSessionStarted</span><span class="token punctuation">(</span><span class="token parameter">session</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      session<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"end"</span><span class="token punctuation">,</span> onSessionEnded<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 添加select事件监听器。当用户点击屏幕时，将基于标线的位置将花朵放置在相机视图中。</span>
+      session<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"select"</span><span class="token punctuation">,</span> onSelect<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>gl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        gl <span class="token operator">=</span> <span class="token function">createWebGLContext</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          xrCompatible<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 设置渲染器</span>
+        renderer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Renderer</span><span class="token punctuation">(</span>gl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        scene<span class="token punctuation">.</span><span class="token function">setRenderer</span><span class="token punctuation">(</span>renderer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      session<span class="token punctuation">.</span><span class="token function">updateRenderState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> baseLayer<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">XRWebGLLayer</span><span class="token punctuation">(</span>session<span class="token punctuation">,</span> gl<span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 该参考空间用于命中测试，要测量与控制器的距离，可以使用以控制器为中心的参考系</span>
+      session<span class="token punctuation">.</span><span class="token function">requestReferenceSpace</span><span class="token punctuation">(</span><span class="token string">"viewer"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">refSpace</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        xrViewerSpace <span class="token operator">=</span> refSpace<span class="token punctuation">;</span>
+        session
+          <span class="token punctuation">.</span><span class="token function">requestHitTestSource</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> space<span class="token operator">:</span> xrViewerSpace <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">hitTestSource</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            xrHitTestSource <span class="token operator">=</span> hitTestSource<span class="token punctuation">;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 在屏幕上绘制某些内容，需使用以用户为中心的坐标</span>
+      session<span class="token punctuation">.</span><span class="token function">requestReferenceSpace</span><span class="token punctuation">(</span><span class="token string">"local"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">refSpace</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        xrRefSpace <span class="token operator">=</span> refSpace<span class="token punctuation">;</span>
+        <span class="token comment">// 开始帧循环</span>
+        session<span class="token punctuation">.</span><span class="token function">requestAnimationFrame</span><span class="token punctuation">(</span>onXRFrame<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">function</span> <span class="token function">onEndSession</span><span class="token punctuation">(</span><span class="token parameter">session</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      xrHitTestSource<span class="token punctuation">.</span><span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      xrHitTestSource <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      session<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">function</span> <span class="token function">onSessionEnded</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      xrButton<span class="token punctuation">.</span><span class="token function">setSession</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 将一朵新花加入场景</span>
+    <span class="token keyword">function</span> <span class="token function">addARObjectAt</span><span class="token punctuation">(</span><span class="token parameter">matrix</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">let</span> newFlower <span class="token operator">=</span> arObject<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      newFlower<span class="token punctuation">.</span>visible <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      newFlower<span class="token punctuation">.</span>matrix <span class="token operator">=</span> matrix<span class="token punctuation">;</span>
+      scene<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span>newFlower<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      flowers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>newFlower<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>flowers<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token constant">MAX_FLOWERS</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> oldFlower <span class="token operator">=</span> flowers<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        scene<span class="token punctuation">.</span><span class="token function">removeNode</span><span class="token punctuation">(</span>oldFlower<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">let</span> rayOrigin <span class="token operator">=</span> vec3<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> rayDirection <span class="token operator">=</span> vec3<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">onSelect</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>reticle<span class="token punctuation">.</span>visible<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">addARObjectAt</span><span class="token punctuation">(</span>reticle<span class="token punctuation">.</span>matrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 重绘一帧时调用</span>
+    <span class="token keyword">function</span> <span class="token function">onXRFrame</span><span class="token punctuation">(</span><span class="token parameter">t<span class="token punctuation">,</span> frame</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 获取AR会话</span>
+      <span class="token keyword">let</span> session <span class="token operator">=</span> frame<span class="token punctuation">.</span>session<span class="token punctuation">;</span>
+      <span class="token comment">// 获取渲染所需位姿</span>
+      <span class="token comment">// Get the viewer's pose.</span>
+      <span class="token keyword">let</span> pose <span class="token operator">=</span> frame<span class="token punctuation">.</span><span class="token function">getViewerPose</span><span class="token punctuation">(</span>xrRefSpace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 将上一个标线隐去</span>
+      reticle<span class="token punctuation">.</span>visible <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token comment">// 如果命中测试源都存在，则用摄像机位姿信息在场景中显示标线，要在AR中绘制任何内容，需要知道观看者在哪里以及他们在看什么</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>xrHitTestSource <span class="token operator">&amp;&amp;</span> pose<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 获取命中测试结果，返回平面数据数组</span>
+        <span class="token comment">// 数组中的第一个是距离相机最近的那个。如果没有返回命中结果，则继续在下一帧中再试一次。</span>
+        <span class="token keyword">let</span> hitTestResults <span class="token operator">=</span> frame<span class="token punctuation">.</span><span class="token function">getHitTestResults</span><span class="token punctuation">(</span>xrHitTestSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>hitTestResults<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token comment">// 从最近的命中测试结果中获取姿势，将标线图像转换（移动）到命中测试位置，然后将其visible属性设置为true。</span>
+          <span class="token comment">// 姿势表示表面上点的姿势。</span>
+          <span class="token keyword">let</span> pose <span class="token operator">=</span> hitTestResults<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">getPose</span><span class="token punctuation">(</span>xrRefSpace<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          reticle<span class="token punctuation">.</span>visible <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+          reticle<span class="token punctuation">.</span>matrix <span class="token operator">=</span> pose<span class="token punctuation">.</span>transform<span class="token punctuation">.</span>matrix<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+      scene<span class="token punctuation">.</span><span class="token function">startFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      session<span class="token punctuation">.</span><span class="token function">requestAnimationFrame</span><span class="token punctuation">(</span>onXRFrame<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      scene<span class="token punctuation">.</span><span class="token function">drawXRFrame</span><span class="token punctuation">(</span>frame<span class="token punctuation">,</span> pose<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      scene<span class="token punctuation">.</span><span class="token function">endFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">initXR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>style scoped<span class="token operator">></span>
+header <span class="token punctuation">&#123;</span>
+  position<span class="token operator">:</span> relative<span class="token punctuation">;</span>
+  z<span class="token operator">-</span>index<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  left<span class="token operator">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  text<span class="token operator">-</span>align<span class="token operator">:</span> left<span class="token punctuation">;</span>
+  max<span class="token operator">-</span>width<span class="token operator">:</span> <span class="token number">420</span>px<span class="token punctuation">;</span>
+  padding<span class="token operator">:</span> <span class="token number">0.5</span>em<span class="token punctuation">;</span>
+  background<span class="token operator">-</span>color<span class="token operator">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">0.9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  margin<span class="token operator">-</span>bottom<span class="token operator">:</span> <span class="token number">0.5</span>em<span class="token punctuation">;</span>
+  border<span class="token operator">-</span>radius<span class="token operator">:</span> <span class="token number">2</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+details summary <span class="token punctuation">&#123;</span>
+  font<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">1</span>em<span class="token punctuation">;</span>
+  font<span class="token operator">-</span>weight<span class="token operator">:</span> bold<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+details<span class="token punctuation">[</span>open<span class="token punctuation">]</span> summary <span class="token punctuation">&#123;</span>
+  font<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">1.4</span>em<span class="token punctuation">;</span>
+  font<span class="token operator">-</span>weight<span class="token operator">:</span> bold<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+header h1 <span class="token punctuation">&#123;</span>
+  margin<span class="token operator">-</span>top<span class="token operator">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+canvas <span class="token punctuation">&#123;</span>
+  position<span class="token operator">:</span> absolute<span class="token punctuation">;</span>
+  z<span class="token operator">-</span>index<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  width<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+  height<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+  left<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  top<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  right<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  bottom<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  margin<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  touch<span class="token operator">-</span>action<span class="token operator">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span>back <span class="token punctuation">&#123;</span>
+  float<span class="token operator">:</span> right<span class="token punctuation">;</span>
+  text<span class="token operator">-</span>decoration<span class="token operator">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span>back<span class="token operator">:</span>hover <span class="token punctuation">&#123;</span>
+  text<span class="token operator">-</span>decoration<span class="token operator">:</span> underline<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span>back<span class="token operator">:</span><span class="token operator">:</span>before <span class="token punctuation">&#123;</span>
+  display<span class="token operator">:</span> inline<span class="token operator">-</span>block<span class="token punctuation">;</span>
+  content<span class="token operator">:</span> <span class="token function">attr</span><span class="token punctuation">(</span>data<span class="token operator">-</span>index<span class="token punctuation">)</span> <span class="token string">"&lt;"</span><span class="token punctuation">;</span>
+  font<span class="token operator">-</span>weight<span class="token operator">:</span> bold<span class="token punctuation">;</span>
+  white<span class="token operator">-</span>space<span class="token operator">:</span> nowrap<span class="token punctuation">;</span>
+  margin<span class="token operator">-</span>right<span class="token operator">:</span> <span class="token number">0.2</span>em<span class="token punctuation">;</span>
+  margin<span class="token operator">-</span>left<span class="token operator">:</span> <span class="token number">0.2</span>em<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/* Used for the 'barebones' samples */</span>
+<span class="token punctuation">.</span>barebones<span class="token operator">-</span>button <span class="token punctuation">&#123;</span>
+  font<span class="token operator">-</span>family<span class="token operator">:</span> <span class="token string">"Karla"</span><span class="token punctuation">,</span> sans<span class="token operator">-</span>serif<span class="token punctuation">;</span>
+  border<span class="token operator">:</span> <span class="token function">rgb</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">,</span> <span class="token number">168</span><span class="token punctuation">,</span> <span class="token number">252</span><span class="token punctuation">)</span> <span class="token number">2</span>px solid<span class="token punctuation">;</span>
+  border<span class="token operator">-</span>radius<span class="token operator">:</span> <span class="token number">2</span>px<span class="token punctuation">;</span>
+  box<span class="token operator">-</span>sizing<span class="token operator">:</span> border<span class="token operator">-</span>box<span class="token punctuation">;</span>
+  background<span class="token operator">:</span> none<span class="token punctuation">;</span>
+  height<span class="token operator">:</span> <span class="token number">55</span>px<span class="token punctuation">;</span>
+  min<span class="token operator">-</span>width<span class="token operator">:</span> <span class="token number">176</span>px<span class="token punctuation">;</span>
+  display<span class="token operator">:</span> inline<span class="token operator">-</span>block<span class="token punctuation">;</span>
+  position<span class="token operator">:</span> relative<span class="token punctuation">;</span>
+  cursor<span class="token operator">:</span> pointer<span class="token punctuation">;</span>
+  font<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">18</span>px<span class="token punctuation">;</span>
+  color<span class="token operator">:</span> <span class="token function">rgb</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">,</span> <span class="token number">168</span><span class="token punctuation">,</span> <span class="token number">252</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  background<span class="token operator">-</span>color<span class="token operator">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">0.7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span>
+</code></pre>
+
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><blockquote>
+<p>A WebXR compatible environment starts with a securely-loaded document. Your document needs to either have been loaded from the local drive (such as by using an URL such as <a target="_blank" rel="noopener" href="http://localhost/">http://localhost/</a>…), or using HTTPS when loading the page. The JavaScript code must, likewise, have been loaded securely.</p>
+</blockquote>
+<p>因为我们是在 pc 上开发，pc 没有可供测试用的 WebAR 设备，使用 <a target="_blank" rel="noopener" href="http://localhost/">http://localhost/</a> 无法满足需求。我们可以将项目部署到 github 的 gh pages，这样虽然有点麻烦，但是从新建项目到部署项目是一个完备的流程，学习一下也是有用的。</p>
+<p>先在 github 新建一个 webar-vue-demo 仓库，依照提示把本地仓库与远程仓库连接起来。<br>然后生成需部署的静态文件。如果你正在嵌套的公共路径下部署项目（例如要部署在 <code>https://USERNAME.github.io/REPO/</code>，即某个仓库的 gh-pages 分支下），需要修改资源路径。</p>
+<ul>
+<li><p>可以简单指定一个 build.base 配置项，然后所有资源的路径都将据此重写。</p>
+<pre class="language-json" data-language="json"><code class="language-json"><span class="token comment">// vite.config.js</span>
+export default <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 配置选项</span>
+  base<span class="token operator">:</span> <span class="token string">"/webar-vue-demo/"</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>;</code></pre>
+</li>
+<li><p>这个选项也可以通过命令行参数指定，例如 <code>vite build --base=/my/public/path/</code>，或者直接修改 packages.json，<code>&quot;build&quot;: &quot;vite build --base=/my/public/path/&quot;</code></p>
+</li>
+</ul>
+<p>在项目中（通常是在根目录下）创建一个 deploy.sh 脚本，包含以下内容，运行它（使用 <code>sh deploy</code>）来部署站点</p>
+<pre class="language-shell" data-language="shell"><code class="language-shell">#!&#x2F;usr&#x2F;bin&#x2F;env sh
+
+# 发生任何错误时终止
+set -e
+
+# 构建
+npm run build
+
+# 进入输出产物文件夹
+cd dist
+
+# 禁用 jekyll
+touch .nojekyll
+
+# 如果你要部署到自定义域名
+# echo &#39;www.example.com&#39; &gt; CNAME
+
+git init
+git add -A
+git commit -m &#39;deploy&#39;
+
+# 如果你要部署在 https:&#x2F;&#x2F;&lt;USERNAME&gt;.github.io。视情况 master 改为 main
+# git push -f git@github.com:&lt;USERNAME&gt;&#x2F;&lt;USERNAME&gt;.github.io.git master
+
+# 如果你要部署在 https:&#x2F;&#x2F;&lt;USERNAME&gt;.github.io&#x2F;&lt;REPO&gt;
+# 把本地master分支的内容推送到远程的gh-pages。如果远程没有gh-pages分支的话，会自动创建该分支。
+# git push -f git@github.com:&lt;USERNAME&gt;&#x2F;&lt;REPO&gt;.git master:gh-pages
+
+cd -</code></pre>
+
+<h3 id="需要注意的事项"><a href="#需要注意的事项" class="headerlink" title="需要注意的事项"></a>需要注意的事项</h3><p>资源文件夹前面会带着下划线，本地使用没有问题，提交到 github 上面，想使用 github pages 的时候提示 404，原因为 github pages 默认使用的 jekyll 模版会忽略下划线开头的文件，所以要禁用 jekyll 。禁用方法就是在项目 gh-pages 根目录下添加一个空白文件，命名为：.nojekyll。可以在 main 分支 public 文件夹下放置一个.nojekyll，这样 build 的时候就会自动生成，或者修改一下 deploy.sh，在 <code>cd dist</code> 之后 <code>touch .nojekyll</code></p>
+<p>具体可看 <a target="_blank" rel="noopener" href="https://docs.github.com/cn/pages/getting-started-with-github-pages/about-github-pages">github docs: about-github-pages</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://immersive-web.github.io/webxr/">WebXR 文档</a></li>
+<li>WebXR 入门博客<ul>
+<li><a target="_blank" rel="noopener" href="https://web.dev/web-ar/">Augmented reality: You may already know it</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.dev/vr-comes-to-the-web/">Virtual reality comes to the web</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.dev/vr-comes-to-the-web-pt-ii/">Virtual reality comes to the web, part II</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.dev/ar-hit-test/">Positioning virtual objects in real-world views</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/immersive-web/webxr-samples">WebXR 示例</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Startup_and_shutdown">WebXR_Device_API/Startup_and_shutdown</a></li>
+<li><a target="_blank" rel="noopener" href="https://vitejs.bootcss.com/guide/static-deploy.html#github-pages">vite 部署</a></li>
+</ul>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/wx-pay.png"><img loading="lazy" src="/images/wx-pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>MleMoe</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://blog.mle.moe/2021/05/11/webar-start/" title="WebAR 起步">https://blog.mle.moe/2021/05/11/webar-start/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/04/11/fe-writing/" rel="next" title="如何证明你是一名 JS 程序员"><span class="post-nav-text">如何证明你是一名 JS 程序员</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/MleMoe/blog/issues?q=is:issue+WebAR 起步">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2021 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> MleMoe</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.4.0</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.5.2</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div></body></html>
