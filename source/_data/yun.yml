@@ -6,10 +6,17 @@ banner:
   border: true
   cloud:
     enable: true
-    color: "white"
+    color: "rgb(236, 187, 156)"
   go_down:
     enable: true
     icon: icon-arrow-down-s-line
+
+bg_image:
+  enable: true
+  url: https://blog.mle.moe/images/background.jpg
+  # dark:
+  # blur: 30px # 设置背景模糊程度
+  opacity: 0.8
 
 # Sidebar Avatar
 avatar:
@@ -35,10 +42,10 @@ social:
     link: https://music.163.com/#/user/home?id=95501215
     icon: icon-netease-cloud-music-line
     color: "#C20C0C"
-  - name: 知乎
-    link: https://www.zhihu.com/people/shen-zhi-shen-zhi
-    icon: icon-zhihu-line
-    color: "#0084FF"
+  # - name: 知乎
+  #   link: https://www.zhihu.com/people/shen-zhi-shen-zhi
+  #   icon: icon-zhihu-line
+  #   color: "#0084FF"
   # - name: Twitter
   #   link: https://twitter.com/YunYouJun
   #   icon: icon-twitter-line
@@ -84,7 +91,7 @@ colors:
 pages:
 
 say:
-  enable: true
+  enable: false
   api: https://el-bot-api.vercel.app/api/words/young
   src: /js/say.js
   # https://developer.hitokoto.cn/sentence/
@@ -98,28 +105,30 @@ reward:
   comment: I'm so cute. Please give me money.
   # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
   methods:
-    - name: 支付宝
-      path: /images/zfb-pay.jpeg
-      color: "#00A3EE"
-      icon: icon-alipay-line
+    # - name: 支付宝
+    #   path: /images/zfb-pay.jpeg
+    #   color: "#00A3EE"
+    #   icon: icon-alipay-line
     # - name: QQ 支付
     #   path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png
     #   color: "#12B7F5"
     #   icon: icon-qq-line
-    # - name: 微信支付
-    #   path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
-    #   color: "#2DC100"
-    #   icon: icon-wechat-pay-line
-  
+    - name: 微信支付
+      path: /images/wx-pay.png
+      color: "#2DC100"
+      icon: icon-wechat-pay-line
+
 github_issues:
   enable: true
-  username: mesmerxx
-  repository: mesmerxx.github.io
+  username: MleMoe
+  repository: blog
   filters: is:issue
-
 
 codeblock:
   copy_btn: true
   prismjs:
     light: default
     dark: tomorrow
+
+fireworks:
+  enable: false
