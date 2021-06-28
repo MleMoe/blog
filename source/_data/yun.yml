@@ -13,7 +13,7 @@ banner:
 
 bg_image:
   enable: true
-  url: https://upyun.yunyoujun.cn/images/polar-bear-and-girl.jpg
+  url: /images/background.jpg
   # dark:
   # blur: 30px # 设置背景模糊程度
   opacity: 0.8
