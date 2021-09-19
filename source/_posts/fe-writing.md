@@ -315,9 +315,9 @@ token 的认证流程与 cookie 很相似
 
 ```javascript
 // javascript
-var encodedString = base64UrlEncode(header) + "." + base64UrlEncode(payload);
+var encodedString = base64UrlEncode(header) + '.' + base64UrlEncode(payload);
 
-var signature = HMACSHA256(encodedString, "secret"); // TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ,加盐secret组合加密
+var signature = HMACSHA256(encodedString, 'secret'); // TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ,加盐secret组合加密
 // 将这三部分用.连接成一个完整的字符串,构成了最终的jwt:
 ```
 
@@ -1134,9 +1134,9 @@ pending、fulfilled、rejected
 
 ```javascript
 // 定义三种状态
-const PENDING = "PENDING"; // 进行中
-const FULFILLED = "FULFILLED"; // 已成功
-const REJECTED = "REJECTED"; // 已失败
+const PENDING = 'PENDING'; // 进行中
+const FULFILLED = 'FULFILLED'; // 已成功
+const REJECTED = 'REJECTED'; // 已失败
 
 class Promise {
   constructor(exector) {
@@ -1184,7 +1184,7 @@ class Promise {
 ```javascript
 var all = (promises) => {
   if (!Array.isArray(promises)) {
-    return reject(new TypeError("arguments must be an array"));
+    return reject(new TypeError('arguments must be an array'));
   }
   var l = promises.length;
   var result = new Array(l);
@@ -1385,7 +1385,7 @@ function prepareCake(flavor) {
   };
 }
 
-const makeCakeLater = prepareCake("banana");
+const makeCakeLater = prepareCake('banana');
 
 // And later in your code...
 makeCakeLater();
@@ -1403,7 +1403,7 @@ function secret(secretCode) {
   };
 }
 
-const theSecret = secret("CSS Tricks is amazing");
+const theSecret = secret('CSS Tricks is amazing');
 theSecret.saySecretCode();
 // 'CSS Tricks is amazing'
 ```
@@ -1545,7 +1545,7 @@ JavaScript 继承的对象函数并不是通过复制而来，而是通过原型
 function Parent(x1) {
   this.x1 = x1;
   this.f1 = function () {
-    console.log("parent!");
+    console.log('parent!');
   };
 }
 // 新的构造器
@@ -1553,7 +1553,7 @@ function Child(y1, x1) {
   Parent.call(this, x1);
   this.y1 = y1;
   this.f1 = function () {
-    console.log("Child!");
+    console.log('Child!');
   };
 }
 // 默认有一个空的原型属性，让Child()从Parent()的原型对象里继承方法
@@ -1576,7 +1576,7 @@ class Point {
   }
 
   toString() {
-    return "(" + this.x + ", " + this.y + ")";
+    return '(' + this.x + ', ' + this.y + ')';
   }
 }
 
@@ -1673,9 +1673,9 @@ function debunce(fn, wait) {
   };
 }
 function realFn() {
-  console.log("Success");
+  console.log('Success');
 }
-window.addEventListener("scroll", debounce(realFn, 500));
+window.addEventListener('scroll', debounce(realFn, 500));
 ```
 
 ### 节流
@@ -1721,7 +1721,7 @@ function deepCopy(obj) {
   let newObj = obj instanceof Array ? [] : {};
   for (let i in obj) {
     // 根据是否是对象来决定是否递归
-    let s = typeof obj[i] == "object" ? deepCopy(obj[i]) : obj[i];
+    let s = typeof obj[i] == 'object' ? deepCopy(obj[i]) : obj[i];
     newObj[i] = s;
   }
   return newObj;
@@ -1837,7 +1837,7 @@ function cssStyle2DomStyle(sName) {
     /([\d\D])-([\d\D])/g,
     (match, $1, $2) => $1 + $2.toUpperCase()
   );
-  return newStr[0] === "-" ? newStr.slice(1) : newStr;
+  return newStr[0] === '-' ? newStr.slice(1) : newStr;
 }
 ```
 
@@ -1856,15 +1856,15 @@ function flat(arr) {
 ### node 服务器
 
 ```javascript
-const http = require("http");
+const http = require('http');
 
-const hostname = "127.0.0.1";
+const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
 });
 
 server.listen(port, hostname, () => {
@@ -1924,10 +1924,10 @@ server.listen(port, hostname, () => {
   var regex = /foo/g;
 
   // regex.lastIndex is at 0
-  regex.test("foo"); // true
+  regex.test('foo'); // true
 
   // regex.lastIndex is now at 3
-  regex.test("foo"); // fals
+  regex.test('foo'); // fals
   ```
 
 - str.match(reg)
@@ -1966,7 +1966,7 @@ server.listen(port, hostname, () => {
 
 ```ts
 let myFavoriteNumber: string | number;
-myFavoriteNumber = "seven";
+myFavoriteNumber = 'seven';
 myFavoriteNumber = 7;
 let myFavoriteNumber: string | number;
 myFavoriteNumber = true;
@@ -1996,7 +1996,7 @@ function createArray(length: number, value: any): Array<any> {
   return result;
 }
 
-createArray(3, "x"); // ['x', 'x', 'x']
+createArray(3, 'x'); // ['x', 'x', 'x']
 ```
 
 ```typescript
@@ -2008,7 +2008,7 @@ function createArray<T>(length: number, value: T): Array<T> {
   return result;
 }
 // 当然，也可以不手动指定，而让类型推论自动推算出来，去掉<string>也可以
-createArray<string>(3, "x"); // ['x', 'x', 'x']
+createArray<string>(3, 'x'); // ['x', 'x', 'x']
 ```
 
 #### 多个类型参数
@@ -2020,7 +2020,7 @@ function swap<T, U>(tuple: [T, U]): [U, T] {
   return [tuple[1], tuple[0]];
 }
 
-swap([7, "seven"]); // ['seven', 7]
+swap([7, 'seven']); // ['seven', 7]
 ```
 
 #### 泛型约束
@@ -2498,6 +2498,7 @@ var partition = (arr, l, h) => {
     while (l < h && arr[l] <= p) {
       l += 1;
     }
+    arr[h] = arr[l];
   }
   arr[l] = p;
   return l;
@@ -2555,9 +2556,9 @@ class TreeNode {
   }
 }
 var tree = new TreeNode(
-  "A",
-  new TreeNode("B", new TreeNode("D"), new TreeNode("E")),
-  new TreeNode("C", new TreeNode("F"), new TreeNode("G"))
+  'A',
+  new TreeNode('B', new TreeNode('D'), new TreeNode('E')),
+  new TreeNode('C', new TreeNode('F'), new TreeNode('G'))
 );
 
 /**
@@ -2635,8 +2636,8 @@ var preOrder3 = (root) => {
   return res;
 };
 
-console.log("preOrder2: ", preOrder2(tree));
-console.log("preOrder3: ", preOrder3(tree));
+console.log('preOrder2: ', preOrder2(tree));
+console.log('preOrder3: ', preOrder3(tree));
 
 var inRes = [];
 var inOrderRecur = (root) => {
@@ -2648,7 +2649,7 @@ var inOrderRecur = (root) => {
   inOrderRecur(root.right);
 };
 inOrderRecur(tree);
-console.log("inOrderRecur: ", inRes);
+console.log('inOrderRecur: ', inRes);
 
 var inOrder2 = (root) => {
   let res = [];
@@ -2666,7 +2667,7 @@ var inOrder2 = (root) => {
   }
   return res;
 };
-console.log("inOrder2: ", inOrder2(tree));
+console.log('inOrder2: ', inOrder2(tree));
 
 var postRes = [];
 var postOrderRecur = (root) => {
@@ -2678,7 +2679,7 @@ var postOrderRecur = (root) => {
   postRes.push(root.val);
 };
 postOrderRecur(tree);
-console.log("postOrderRecur: ", postRes);
+console.log('postOrderRecur: ', postRes);
 
 var postOrder2 = (root) => {
   let res = [];
@@ -2704,7 +2705,7 @@ var postOrder2 = (root) => {
   }
   return res;
 };
-console.log("postOrder2: ", postOrder2(tree));
+console.log('postOrder2: ', postOrder2(tree));
 ```
 
 ## 网络安全
