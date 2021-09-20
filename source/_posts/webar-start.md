@@ -110,7 +110,7 @@ npm run dev
 - 调用`navigator.xr.isSessionSupported(mode)`以确定设备是否支持该 XR 内容类型，并告知用户结果
 
   ```js
-  const supported = await navigator.xr.isSessionSupported("immersive-ar");
+  const supported = await navigator.xr.isSessionSupported('immersive-ar');
   if (supported) {
     // 'immersive-ar' sessions may be supported.
     // Page should advertise support to the user.
@@ -385,15 +385,15 @@ export default {
 
 ## 部署
 
-运行 WebXR 有额外的安全要求，以下是官方描述，即只能使用 http://localhost/ 和 https 链接加载 WebXR 内容。
+运行 WebXR 有额外的安全要求，以下是官方描述，即只能使用 `http://localhost/` 和 https 链接加载 WebXR 内容。
 
-> A WebXR compatible environment starts with a securely-loaded document. Your document needs to either have been loaded from the local drive (such as by using an URL such as http://localhost/...), or using HTTPS when loading the page. The JavaScript code must, likewise, have been loaded securely.
+> A WebXR compatible environment starts with a securely-loaded document. Your document needs to either have been loaded from the local drive (such as by using an URL such as `http://localhost/`...), or using HTTPS when loading the page. The JavaScript code must, likewise, have been loaded securely.
 
-因为我们是在 pc 上开发，pc 没有可供测试用的 WebAR 设备，使用 http://localhost/ 无法满足需求。
+因为我们是在 pc 上开发，pc 没有可供测试用的 WebAR 设备，使用 `http://localhost/` 无法满足需求。
 
 有两种比较方便的解决办法，分别是
 
-- 测试：手机 chrome 浏览器中把我们的 http://ip:port 设为安全来源
+- 测试：手机 chrome 浏览器中把我们的 `http://ip:port` 设为安全来源
 - 部署：使用 gh-pages 部署拿到一个 https 链接。
 
 ### 测试
