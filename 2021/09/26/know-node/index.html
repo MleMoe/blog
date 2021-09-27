@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="MleMoe"><meta name="copyright" content="MleMoe"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>了解 Node | 咕</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.24/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_ed8vp4atwoj.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"blog.mle.moe","root":"/","title":"鸽子的一百种做法","version":"1.5.2","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg"};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="前言新人训练营以树神的 node 分享作为压轴节目 👏👏我来整篇笔记 📒 ～ 定义万事万物都需要一个定义。那么 nodejs 是什么呢？nodejs 是 javascript 的一个运行环境。浏览器也是 js 运行环境，但是作为一个沙盒环境，它与本机环境隔离，而 node 则位于服务端。让我们来想想，当一个语言用来做服务器端使用语言，那么它该做些什么呢？网络请求&#x2F;处理、文件 IO（读写）、数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解 Node">
+<meta property="og:url" content="https://blog.mle.moe/2021/09/26/know-node/index.html">
+<meta property="og:site_name" content="咕">
+<meta property="og:description" content="前言新人训练营以树神的 node 分享作为压轴节目 👏👏我来整篇笔记 📒 ～ 定义万事万物都需要一个定义。那么 nodejs 是什么呢？nodejs 是 javascript 的一个运行环境。浏览器也是 js 运行环境，但是作为一个沙盒环境，它与本机环境隔离，而 node 则位于服务端。让我们来想想，当一个语言用来做服务器端使用语言，那么它该做些什么呢？网络请求&#x2F;处理、文件 IO（读写）、数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.mle.moe/images/node/structure.png">
+<meta property="og:image" content="https://blog.mle.moe/images/node/event-loop.png">
+<meta property="article:published_time" content="2021-09-26T15:09:13.000Z">
+<meta property="article:modified_time" content="2021-09-27T06:44:31.957Z">
+<meta property="article:author" content="MleMoe">
+<meta property="article:tag" content="nodejs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mle.moe/images/node/structure.png"><script src="/js/ui/mode.js"></script></head><body><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="MleMoe"><img width="96" loading="lazy" src="/images/girl.jpeg" alt="MleMoe"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">MleMoe</a></div><a class="site-name" href="/about/site.html">咕</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">10</span></a></div><a class="site-state-item hty-icon-button" href="/" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/MleMoe" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=95501215" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:i@mle.moe" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">启动流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="toc-number">5.</span> <span class="toc-text">事件循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">5.1.</span> <span class="toc-text">运行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-number">5.2.</span> <span class="toc-text">6 个阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#process-nextTick"><span class="toc-number">5.3.</span> <span class="toc-text">process.nextTick</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84-Event-Loop-%E5%B7%AE%E5%BC%82"><span class="toc-number">5.4.</span> <span class="toc-text">Node 与浏览器的 Event Loop 差异</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://blog.mle.moe/2021/09/26/know-node/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="MleMoe"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="咕"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">了解 Node</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-09-26 23:09:13" itemprop="dateCreated datePublished" datetime="2021-09-26T23:09:13+08:00">2021-09-26</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2021-09-27 14:44:31" itemprop="dateModified" datetime="2021-09-27T14:44:31+08:00">2021-09-27</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/nodejs/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">nodejs</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>新人训练营以树神的 node 分享作为压轴节目 👏👏<br>我来整篇笔记 📒 ～</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>万事万物都需要一个定义。那么 nodejs 是什么呢？<br>nodejs 是 javascript 的一个运行环境。浏览器也是 js 运行环境，但是作为一个沙盒环境，它与本机环境隔离，而 node 则位于服务端。<br>让我们来想想，当一个语言用来做服务器端使用语言，那么它该做些什么呢？网络请求/处理、文件 IO（读写）、数据库查写，或其它。<br>众所周知，js 在浏览器是没有权限读取文件的，那么为 web 而生的 js ，该如何运行在服务器端呢？请看它的架构。</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>架构图如下：<br><img src="/images/node/structure.png" alt="node 架构" loading="lazy"></p>
+<p>node 使用 chrome 的 V8 引擎来提供解释执行 JS 的能力，基于 C/C++ 来实现服务器端能力。</p>
+<p>注意 V8 提供的仅是 JS 原生语法的解释执行，而与浏览器相关的功能，如 BOM 和 DOM，并不涉及。<br>对于服务器端能力，其中的网络、文件操作相关能力，由 <a target="_blank" rel="noopener" href="https://github.com/libuv/libuv">libuv</a> 提供。</p>
+<p>libuv 是一个多平台 C 库，提供对基于事件循环的异步 I/O 的支持，有如下能力：</p>
+<ul>
+<li>由 epoll、kqueue、IOCP、事件端口支持的全功能 <strong>事件循环</strong></li>
+<li>异步 TCP 和 UDP 套接字</li>
+<li>异步 DNS 解析</li>
+<li>异步文件和文件系统操作</li>
+<li>文件系统事件</li>
+<li>ANSI 转义序列控制的 TTY</li>
+<li>IPC 经由套接字共享，使用 Unix 域套接字或命名管道（Windows）</li>
+<li>子进程</li>
+<li>线程池</li>
+<li>线程和同步原语（primitive）</li>
+<li>信号处理</li>
+<li>高清晰度时钟</li>
+</ul>
+<p>同时，还有一些其它的 C++ 模块，如 Buffer/Crypto，则不依赖 linuv，为 node 自行实现。</p>
+<blockquote>
+<p>node 还允许开发者自定义 C++ 扩展。若有兴趣，可见（强如）死月写的《来一打 C++ 扩展》</p>
+</blockquote>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>示意图如下：<br><img src="/images/node/event-loop.png" alt="node 事件循环" loading="lazy"></p>
+<h3 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h3><p>Node 的运行流程如下：</p>
+<ol>
+<li>V8 引擎解析 JavaScript 脚本。</li>
+<li>解析处理提供的脚本后，调用 Node API。</li>
+<li>libuv 库负责 Node API 的执行。它将不同的任务分配给不同的线程，形成一个 Event Loop（事件循环），以异步的方式将任务的执行结果返回给 V8 引擎。</li>
+<li>V8 引擎再将结果返回给用户。</li>
+</ol>
+<p>所以说，事件循环是 Node 处理非阻塞 I/O 操作的机制，事件循环特性由 libuv 实现。</p>
+<p>JS 是单线程处理的，但有时候，它们会把操作转移到系统内核中去。<br>目前大多数内核都是多线程的，它们可在后台处理多种操作。当其中的一个操作完成的时候，内核通知 Node 将适合的回调函数添加到 轮询 队列中等待时机执行。</p>
+<p>例如文件 IO，主线程会直接把该任务给 libuv ，自己去执行其它任务，libuv 默认有 4 个线程，当 libuv 执行完该任务后，再把结果返回给主线程。</p>
+<p>其中 libuv 引擎中的事件循环分为 6 个阶段，它们会按照顺序反复运行。<br>每当进入某一个阶段的时候，都会从对应的回调队列中取出函数去执行。当队列为空或者执行的回调函数数量到达系统设定的阈值，就会进入下一阶段。</p>
+<h3 id="6-个阶段"><a href="#6-个阶段" class="headerlink" title="6 个阶段"></a>6 个阶段</h3><p>这里是 6 个阶段：</p>
+<ul>
+<li>timer <strong>定时器</strong>：本阶段执行已经到点的 <strong>setTimeout()</strong> 和 <strong>setInterval()</strong> 的<strong>调度回调函数</strong>。</li>
+<li>待定回调：处理一些上一轮循环中的少数未执行的 I/O 回调。</li>
+<li>idle, prepare：仅 node 内部使用。</li>
+<li>poll <strong>轮询</strong>：<ul>
+<li>检索新的 I/O 事件；</li>
+<li>执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。</li>
+</ul>
+</li>
+<li>check 检测：<strong>setImmediate()</strong> 回调函数在这里执行。</li>
+<li>关闭的回调函数：一些关闭的回调函数，如：socket.on(‘close’, …)。</li>
+</ul>
+<p>接下去详细介绍 timers、poll、check 这 3 个阶段，因为日常开发中的绝大部分异步任务都是在这 3 个阶段处理的。</p>
+<ol>
+<li><p>timer<br>timers 阶段会执行 setTimeout 和 setInterval 回调，并且是由 poll 阶段控制的。<br>同样，在 Node 中定时器指定的时间也不是准确时间，只能是尽快执行。</p>
+</li>
+<li><p>poll<br>poll 是一个至关重要的阶段，这一阶段中，系统会做两件事情：<strong>回到 timer 阶段执行回调</strong>，和<strong>执行 I/O 回调</strong>。<br>如果<strong>设定了 timer 的话且 poll 队列为空</strong>，则会判断是否有 timer 超时，如果有的话会回到 timer 阶段执行回调。<br>如果进入该阶段时没有设定 timer ：</p>
+<ul>
+<li><p>若 poll 队列不为空，会遍历回调队列并同步执行，直到队列为空或者达到系统限制</p>
+</li>
+<li><p>若 poll 队列为空：</p>
+<ul>
+<li>若有 setImmediate 回调需执行，进入 check 阶段</li>
+<li>若无 setImmediate 回调需执行，会等待回调被加入到队列中并立即执行回调，这里同样会有个超时时间设置防止一直等待下去</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>check</p>
+</li>
+</ol>
+<p>setImmediate()的回调会被加入 check 队列中，check 阶段的执行顺序在 poll 阶段之后。</p>
+<p>看一个例子：</p>
+<pre class="language-js" data-language="js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'start'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'timer1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'promise1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'timer2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'promise2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'promise3'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>输出结果是：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">//start=>end=>promise3=>timer1=>timer2=>promise1=>promise2</span></code></pre>
+
+<p>一开始执行栈的同步任务（这属于宏任务）执行完毕后（依次打印出 start end，并将 2 个 timer 依次放入 timer 队列）,会先去执行微任务（这点跟浏览器端的一样），所以打印出 promise3</p>
+<p>然后进入 timers 阶段，执行 timer1 的回调函数，打印 timer1，并将 promise.then 回调放入 microtask 队列，同样的步骤执行 timer2，打印 timer2；这点跟浏览器端相差比较大，timers 阶段有几个 setTimeout/setInterval 都会依次执行，并不像浏览器端，每执行一个宏任务后就去执行一个微任务。</p>
+<h3 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick"></a>process.nextTick</h3><p>这个函数其实是独立于 Event Loop 之外的，它有一个自己的队列，当每个阶段完成后，如果存在 nextTick 队列，就会清空队列中的所有回调函数，并且优先于其他 microtask 执行。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'timer1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'promise1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'nextTick'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'nextTick'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'nextTick'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'nextTick'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// nextTick=>nextTick=>nextTick=>nextTick=>timer1=>promise1</span></code></pre>
+
+<h3 id="Node-与浏览器的-Event-Loop-差异"><a href="#Node-与浏览器的-Event-Loop-差异" class="headerlink" title="Node 与浏览器的 Event Loop 差异"></a>Node 与浏览器的 Event Loop 差异</h3><p>浏览器环境下，microtask 的任务队列是每个 macrotask 执行完之后执行。而在 Node.js 中，microtask 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 microtask 队列的任务。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/">node 事件循环</a></li>
+</ul>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/wx-pay.png"><img loading="lazy" src="/images/wx-pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>MleMoe</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://blog.mle.moe/2021/09/26/know-node/" title="了解 Node">https://blog.mle.moe/2021/09/26/know-node/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/09/24/know-vite/" rel="next" title="vite，下一代前端工具"><span class="post-nav-text">vite，下一代前端工具</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/MleMoe/blog/issues?q=is:issue+了解 Node">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2021 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> MleMoe</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.4.0</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.5.2</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div></body></html>
