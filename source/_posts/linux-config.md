@@ -49,7 +49,7 @@ cat ~/.ssh/id_ed25519.pub
 ### zsh
 
 ```bash
-sudo yum install zsh
+yum install zsh
 ```
 
 ### ohmyzsh
@@ -93,7 +93,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 yum install nodejs
 ```
 
-但是 yum 源安装的 node 版本是 v6.17.1，npm 版本为 3.10.10，不符合全球各国人民日渐增常的开发需求。
+但是 yum 源安装的 node 版本是 v6.17.1，npm 版本为 3.10.10，不符合全球人民日渐增长的开发需求。
 
 这里使用 `n` 这个 npm 包来管理 node 版本。
 

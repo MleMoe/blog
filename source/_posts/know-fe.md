@@ -43,7 +43,7 @@ tags:
 使用 Web API ：[XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest) 或 [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)，向后端接口请求数据。
 
 > 为了更好的开发，封装了 [axios](https://github.com/axios/axios) （client 端基于 XHR 和 Promise）或其余自建工具 等网络请求库。
-> axios 可以自动转码 JSon 数据、处理响应结果、取消请求、支持客户端 XSCF 攻击防护 等等
+> axios 可以自动转码 json 数据、处理响应结果、取消请求、支持客户端 XSCF 攻击防护 等等
 
 获取到接口数据，我们就可以利用该数据和 JS 中的响应方法，渲染或更新页面节点。
 
@@ -51,7 +51,7 @@ tags:
 
 所以网站的基础资源就是 HTML、CSS 和 JS 文件。
 
-各种各样的前端框架，无论代码编写方式如何（ .JSx、.vue、.less ），最终都会 build 构建为 .HTML、.CSS 和 .JS，部署的话也是部署这些资源。
+各种各样的前端框架，无论代码编写方式如何（ .jsx、.vue、.less ），最终都会 build 构建为 .HTML、.CSS 和 .JS，部署的话也是部署这些资源。
 
 所以，从某种程度上 HTML、CSS 和 JS 确实可以代表前端，当然这是很久很久以前的年代了。
 
@@ -106,7 +106,7 @@ tags:
 
 工程化本来是个蛮久以后才讲的题（因为我还没有怎么涉及。。），但是既然问到了，那么我也就理理我目前粗浅的了解吧
 
-前端项目研发的生命周期大致可以分为这三阶段：
+前端项目研发的生命周期大致可以分为这三阶段，让我们分步阐述其中的工程化。
 
 - 项目搭建
 - 开发调试
